@@ -173,6 +173,7 @@
             this.Name = "FormProvider";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Контакты-Поставщики";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormProvider_FormClosing);
             this.Load += new System.EventHandler(this.FormProvider_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceTablProv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gas_DataSet)).EndInit();

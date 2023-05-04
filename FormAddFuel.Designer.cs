@@ -93,6 +93,7 @@
             this.txtid.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtid.Location = new System.Drawing.Point(139, 63);
             this.txtid.Name = "txtid";
+            this.txtid.ReadOnly = true;
             this.txtid.Size = new System.Drawing.Size(146, 29);
             this.txtid.TabIndex = 4;
             // 
@@ -188,6 +189,7 @@
             this.Name = "FormAddFuel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление топлива";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormAddFuel_FormClosing);
             this.Load += new System.EventHandler(this.FormAddFuel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.providerDirectoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gas_DataSet)).EndInit();

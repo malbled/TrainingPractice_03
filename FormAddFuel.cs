@@ -1,20 +1,56 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace TrainingPractice_03
 {
     public partial class FormAddFuel : Form
     {
+        public const string CONECT = @"Data Source=Leksa\SQLEXPRESS;Initial Catalog=DB_GasStation;Integrated Security=True";
+        private SqlConnection myConnection;
         public FormAddFuel()
         {
             InitializeComponent();
+            myConnection = new SqlConnection(CONECT);
         }
 
         private void FormAddFuel_Load(object sender, EventArgs e)
         {
             // TODO: данная строка кода позволяет загрузить данные в таблицу "gas_DataSet.Provider_Directory". При необходимости она может быть перемещена или удалена.
             this.provider_DirectoryTableAdapter.Fill(this.gas_DataSet.Provider_Directory);
+            try
+            {
+                myConnection = new SqlConnection(CONECT);
+                myConnection.Open();
+                string query = "Select count(*) from Types_Fuel";
+
+                var comand = new SqlCommand(query);
+                comand.Connection = myConnection;
+                var reader = comand.ExecuteReader();
+                int data = 0;
+                if (reader.HasRows == false)
+                {
+                    MessageBox.Show("Что-то неполучается!");
+                }
+                else
+                {
+                    while (reader.Read())
+                    {
+                        data = reader.GetInt32(0);
+                    }
+                    data = data + 101;
+                    txtid.Text = data.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
 
         }
 
@@ -42,6 +78,11 @@ namespace TrainingPractice_03
                 main.gas_DataSet.Tables[2].AcceptChanges();
                 main.dGVFuel.Refresh();
             }
+        }
+
+        private void FormAddFuel_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myConnection.Close();
         }
     }
 }
